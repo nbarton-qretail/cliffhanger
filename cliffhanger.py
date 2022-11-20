@@ -1,7 +1,7 @@
 import time
 import pygame
 import numpy as np
-from gamecard import Responsebox
+from gamecard import Questionbox, Responsebox
 from wall import Wall
 from character import Character
 from random import uniform
@@ -25,6 +25,7 @@ win.fill((255,255,255))
 
 # Init wall
 wall = Wall()
+question = Questionbox(game_params['question'], wall.img_width)
 
 # Init Character
 char = Character()
@@ -32,23 +33,24 @@ char = Character()
 # Generate the steps the Character will take up the wall using the characters offset
 wall.generate_step_vector_points(char.x_offset, char.y_offset)
 
-# object pos start
-char.curr = wall.vectors.pop(0)
-
-response_box = Responsebox()
+response_box = Responsebox(win_width, wall.img_width)
 
 def redrawGameWindow(vector_points):
-    # draw background
+    # Draw background
     win.fill((255,255,255))
+    # Draw Cliffhanger Wall
     win.blit(wall.img, (0,0))
-    # draw inputbox
+
+    # Draw Question
+    win.blit(question.text, question.textRect)
     
+    # Draw inputbox
     # Blit the text.
     win.blit(response_box.txt_surface(), (response_box.input_box.x+5, response_box.input_box.y+5))
     # Blit the input_box rect.
     pygame.draw.rect(win, response_box.color, response_box.input_box, 2, 5)
 
-    # draw character
+    # Draw character
     win.blit(char.img, (vector_points))
     pygame.display.update()
 
@@ -107,26 +109,29 @@ while run:
         moves = answer_evaluator(contestant_response, game_params)
 
     if len(wall.vectors) == 0:
+        # TODO: animate falling
         run = False
 
-    if moves > 0 and char.animate == True:
+    if char.animate == True:        
+        # TODO: Play yodeling music
         
-        finish = wall.vectors.pop(0)
-        vector_points = gen_coords(char.curr[0], char.curr[1], finish[0], finish[1], 50)
+        while moves > 0:
+            finish = wall.vectors.pop(0)
+            vector_points = gen_coords(char.curr[0], char.curr[1], finish[0], finish[1], 50)
 
-        while len(vector_points) > 0:
-            if len(vector_points) == 1:
-                next_point = finish
-                vector_points=[]
-            else:
-                next_point = vector_points.pop(0)
-            char.curr = next_point
-            redrawGameWindow(next_point)
-        moves -= 1
+            while len(vector_points) > 0:
+                if len(vector_points) == 1:
+                    next_point = finish
+                    vector_points=[]
+                else:
+                    next_point = vector_points.pop(0)
+                char.curr = next_point
+                redrawGameWindow(next_point)
+            moves -= 1
 
-    elif moves == 0:
-        response_box.text = ''
-        redrawGameWindow(char.curr)
-        char.animate = False
+        if moves == 0:
+            response_box.text = ''
+            redrawGameWindow(char.curr)
+            char.animate = False
 
 pygame.quit()
