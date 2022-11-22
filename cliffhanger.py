@@ -60,24 +60,26 @@ def answer_evaluator(response, question):
     answer = question['answer']
     evaluated_answer = abs(answer - response)
     if evaluated_answer == 0:
-        print("Correct")
         win.blit(answerimg.tick_img, ((win.get_width()//2) - (answerimg.tick_img_width//2), (win.get_height()//2) - (answerimg.tick_img_height//2)))
-        # TODO: Play ding
         pygame.display.update()
+        pygame.mixer.music.load("sound/ding.mp3")        
+        pygame.mixer.music.play()
         pygame.time.wait(1000)
+        pygame.mixer.music.stop()
     else:
-        # cross and bzz sound
-        print("Wrong")
         win.blit(answerimg.cross_img, ((win.get_width()//2) - (answerimg.cross_img_width//2), (win.get_height()//2) - (answerimg.cross_img_height//2)))
-        # TODO: Play bzzz
         pygame.display.update()
+        pygame.mixer.music.load("sound/buzz.mp3")        
+        pygame.mixer.music.play(start=1.9)
         pygame.time.wait(1000)
+        pygame.mixer.music.stop()
     return evaluated_answer
 
 def evaluate_event(events):
     for event in events:
         if event.type == pygame.QUIT:
             run = False
+            pygame.quit()
         if event.type == pygame.MOUSEBUTTONDOWN:
             # If the user clicked on the input_box rect.
             if response_box.input_box.collidepoint(event.pos):
@@ -136,7 +138,7 @@ for question in questions:
             break
 
         if char.animate == True:
-            pygame.mixer.music.load("yodel.mp3")        
+            pygame.mixer.music.load("sound/yodel.mp3")        
             pygame.mixer.music.play(loops=-1)
             
             while moves > 0:
