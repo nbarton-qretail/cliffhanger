@@ -30,3 +30,16 @@ class Responsebox:
     def set_colour(self):
         self.color_active if self.active else self.color_inactive
     
+class Answerimg:
+    def __init__(self) -> None:
+        self.tick_filepath = "img/tick.png"
+        self.tick_img = pygame.image.load(self.tick_filepath)
+        self.tick_img = pygame.transform.smoothscale(self.tick_img, size=(800, 800))
+        self.tick_img_width = 800
+        self.tick_img_height = 800
+        
+        self.cross_filepath = "img/cross.png"
+        self.cross_img = pygame.image.load(self.cross_filepath)
+        self.cross_img = pygame.transform.smoothscale(self.cross_img, size=(800, 800))
+        self.cross_img_width = 800
+        self.cross_img_height = 800

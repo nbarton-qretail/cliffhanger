@@ -31,4 +31,6 @@ class Wall:
         self.vectors=[]
         for i in range(self.steps):
             self.vectors.append((int(self.x_vectors[i]-x_offset), int(self.y_vectors[i]-y_offset)))
+        # Append the point to fall to if all points are used.
+        self.vectors.append((1058, 456))
     

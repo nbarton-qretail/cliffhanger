@@ -1,18 +1,23 @@
 import time
 import pygame
 import numpy as np
-from gamecard import Questionbox, Responsebox
+from gamecard import Questionbox, Responsebox, Answerimg
 from wall import Wall
 from character import Character
 from random import uniform
 
 
 
-
-game_params = {
-    "question": "How much does Woolworths spend on Secondary Freight?",
-    "answer": 10
-}
+questions = [
+    {
+    "question": "Pick and number between 1 and 20",
+    "answer": 13
+    },
+    {
+    "question": "Pick another number between 1 and 20",
+    "answer": 7
+    }
+]
 
 pygame.init()
 
@@ -23,17 +28,14 @@ win = pygame.display.set_mode((win_width, win_height))
 pygame.display.set_caption("Cliffhanger")
 win.fill((255,255,255))
 
-# Init wall
+# Init game board and character
 wall = Wall()
-question = Questionbox(game_params['question'], wall.img_width)
-
-# Init Character
 char = Character()
+answerimg = Answerimg()
 
-# Generate the steps the Character will take up the wall using the characters offset
-wall.generate_step_vector_points(char.x_offset, char.y_offset)
+# Load yodelling
 
-response_box = Responsebox(win_width, wall.img_width)
+
 
 def redrawGameWindow(vector_points):
     # Draw background
@@ -42,7 +44,7 @@ def redrawGameWindow(vector_points):
     win.blit(wall.img, (0,0))
 
     # Draw Question
-    win.blit(question.text, question.textRect)
+    win.blit(question_box.text, question_box.textRect)
     
     # Draw inputbox
     # Blit the text.
@@ -54,9 +56,23 @@ def redrawGameWindow(vector_points):
     win.blit(char.img, (vector_points))
     pygame.display.update()
 
-def answer_evaluator(response, game_params):
-    answer = game_params['answer']
-    return abs(answer - response)
+def answer_evaluator(response, question):
+    answer = question['answer']
+    evaluated_answer = abs(answer - response)
+    if evaluated_answer == 0:
+        print("Correct")
+        win.blit(answerimg.tick_img, ((win.get_width()//2) - (answerimg.tick_img_width//2), (win.get_height()//2) - (answerimg.tick_img_height//2)))
+        # TODO: Play ding
+        pygame.display.update()
+        pygame.time.wait(1000)
+    else:
+        # cross and bzz sound
+        print("Wrong")
+        win.blit(answerimg.cross_img, ((win.get_width()//2) - (answerimg.cross_img_width//2), (win.get_height()//2) - (answerimg.cross_img_height//2)))
+        # TODO: Play bzzz
+        pygame.display.update()
+        pygame.time.wait(1000)
+    return evaluated_answer
 
 def evaluate_event(events):
     for event in events:
@@ -93,45 +109,62 @@ def gen_coords(x1, y1, x2, y2, n):
     return vectors
 
 
-redrawGameWindow(char.curr)
-run = True
-moves = 0
 
-while run:
+for question in questions:
 
-    events = pygame.event.get()
-    if len(events) > 0:
-        evaluate_event(events)
-        
-    if response_box.text != '' and char.animate != True:
-        # Evaluate response
-        contestant_response = int(response_box.text)
-        moves = answer_evaluator(contestant_response, game_params)
+    question_box = Questionbox(question['question'], wall.img_width)
+    char.set_to_start()
+    wall.generate_step_vector_points(char.x_offset, char.y_offset)
+    response_box = Responsebox(win_width, wall.img_width)
+    run = True
+    moves = 0
+    redrawGameWindow(char.curr)
 
-    if len(wall.vectors) == 0:
-        # TODO: animate falling
-        run = False
+    while run:
 
-    if char.animate == True:        
-        # TODO: Play yodeling music
-        
-        while moves > 0:
-            finish = wall.vectors.pop(0)
-            vector_points = gen_coords(char.curr[0], char.curr[1], finish[0], finish[1], 50)
+        events = pygame.event.get()
+        if len(events) > 0:
+            evaluate_event(events)
+            
+        if response_box.text != '' and char.animate == True:
+            # Evaluate response
+            contestant_response = int(response_box.text)
+            moves = answer_evaluator(contestant_response, question)
 
-            while len(vector_points) > 0:
-                if len(vector_points) == 1:
-                    next_point = finish
-                    vector_points=[]
-                else:
-                    next_point = vector_points.pop(0)
-                char.curr = next_point
-                redrawGameWindow(next_point)
-            moves -= 1
+        if len(wall.vectors) == 0:
+            # run = False
+            break
 
-        if moves == 0:
-            response_box.text = ''
-            redrawGameWindow(char.curr)
-            char.animate = False
+        if char.animate == True:
+            pygame.mixer.music.load("yodel.mp3")        
+            pygame.mixer.music.play(loops=-1)
+            
+            while moves > 0:
+                if len(wall.vectors) == 0:
+                    # Player looses
+                    break
+
+                finish = wall.vectors.pop(0)
+                vector_points = gen_coords(char.curr[0], char.curr[1], finish[0], finish[1], 50)
+
+                while len(vector_points) > 0:
+                    if len(vector_points) == 1:
+                        next_point = finish
+                        vector_points=[]
+                    else:
+                        next_point = vector_points.pop(0)
+                    char.curr = next_point
+                    redrawGameWindow(next_point)
+                moves -= 1
+            pygame.mixer.music.stop()
+
+            if moves == 0:
+                response_box.text = ''
+                redrawGameWindow(char.curr)
+                char.animate = False
+            
+            if len(wall.vectors) == 0:
+                char.set_to_start()
+
 
 pygame.quit()

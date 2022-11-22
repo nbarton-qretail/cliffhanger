@@ -17,11 +17,12 @@ class Character:
         self.x_offset = (self.img_width-(self.img_width - 435)) // scale
         self.y_offset = (self.img_width-(self.img_width - 484)) // scale
         
-        # Position 0 on the wall
-        pos_0 = (288, 651)
-        self.curr = (pos_0[0]-self.x_offset, pos_0[1]-self.y_offset)
-
         # object dims
         self.width = 600 // scale
         self.height = 600 // scale
         self.img = pygame.transform.smoothscale(self.img, size=(self.width, self.height))
+
+    def set_to_start(self):
+        """Sets character to Position 0 on the wall"""
+        pos_0 = (288, 651)
+        self.curr = (pos_0[0]-self.x_offset, pos_0[1]-self.y_offset)
