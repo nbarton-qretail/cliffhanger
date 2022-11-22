@@ -155,6 +155,7 @@ def evaluate_event(events):
                     char.animate = True
                 elif event.key == pygame.K_BACKSPACE:
                     response_box.text = response_box.text[:-1]
+                    redrawGameWindow(char.curr)
                 elif event.key in [
                     pygame.K_0,
                     pygame.K_1,
