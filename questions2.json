@@ -1,0 +1,50 @@
+[
+    {
+        "article": "Smiths Crinkle Cut Chips Chicken 170g",
+        "store": "Mona Vale, NSW",
+        "question": "How much did we spend to pick the item at the DC?",
+        "choices": [
+            0.04,
+            0.08,
+            0.12,
+            0.15
+        ],
+        "answer": 0.08
+    },
+    {
+        "article": "Smiths Crinkle Cut Chips Chicken 170g",
+        "store": "Mona Vale, NSW",
+        "question": "How much did we spend to freight the item?",
+        "choices": [
+            0.30,
+            0.41,
+            0.46,
+            0.51
+        ],
+        "answer": 0.41
+    },
+    {
+        "article": "Smiths Crinkle Cut Chips Chicken 170g",
+        "store": "Mona Vale, NSW",
+        "question": "How much did we spend to stock the item in the store?",
+        "choices": [
+            0.25,
+            0.27,
+            0.34,
+            0.46
+        ],
+        "answer": 0.34
+    },
+    {
+        "article": "Smiths Crinkle Cut Chips Chicken 170g",
+        "store": "Mona Vale, NSW",
+        "question": "Question: What was the Cost to Serve profitablity?",
+        "choices": [
+            0.45,
+            0.55,
+            0.60,
+            0.66
+        ],
+        "answer": 0.55
+    }
+]

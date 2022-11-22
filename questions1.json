@@ -1,0 +1,50 @@
+[
+    {
+        "article": "Smiths Crinkle Cut Chips Chicken 170g",
+        "store": "Gove, NT",
+        "question": "How much did we spend to pick the item at the DC?",
+        "choices": [
+            0.10,
+            0.2,
+            0.3,
+            0.4
+        ],
+        "answer": 0.1
+    },
+    {
+        "article": "Smiths Crinkle Cut Chips Chicken 170g",
+        "store": "Gove, NT",
+        "question": "How much did we spend to freight the item?",
+        "choices": [
+            1.77,
+            1.87,
+            0.77,
+            0.99
+        ],
+        "answer": 1.77
+    },
+    {
+        "article": "Smiths Crinkle Cut Chips Chicken 170g",
+        "store": "Gove, NT",
+        "question": "How much did we spend to stock the item in the store?",
+        "choices": [
+            0.31,
+            0.36,
+            0.41,
+            0.46
+        ],
+        "answer": 0.41
+    },
+    {
+        "article": "Smiths Crinkle Cut Chips Chicken 170g",
+        "store": "Gove, NT",
+        "question": "What was the Cost to Serve profitablity?",
+        "choices": [
+            -1.23,
+            -1.33,
+            -1.15,
+            1.21
+        ],
+        "answer": -1.23
+    }
+]
