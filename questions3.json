@@ -1,0 +1,50 @@
+[
+    {
+        "article": "Sakata Rice Cracker Plain 100g",
+        "store": "Dog Swamp, WA",
+        "question": "How much did we spend to pick the item at the DC?",
+        "choices": [
+            0.07,
+            0.09,
+            0.12,
+            0.24
+        ],
+        "answer": 0.09
+    },
+    {
+        "article": "Sakata Rice Cracker Plain 100g",
+        "store": "Dog Swamp, WA",
+        "question": "How much did we spend to freight the item?",
+        "choices": [
+            0.01,
+            0.05,
+            0.10,
+            0.11
+        ],
+        "answer": 0.01
+    },
+    {
+        "article": "Sakata Rice Cracker Plain 100g",
+        "store": "Dog Swamp, WA",
+        "question": "How much did we spend to stock the item in the store?",
+        "choices": [
+            0.19,
+            0.25,
+            0.37,
+            0.42
+        ],
+        "answer": 0.37
+    },
+    {
+        "article": "Sakata Rice Cracker Plain 100g",
+        "store": "Dog Swamp, WA",
+        "question": "Question: What was the Cost to Serve profitablity?",
+        "choices": [
+            0.45,
+            0.52,
+            0.56,
+            0.69
+        ],
+        "answer": 0.56
+    }
+]

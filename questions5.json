@@ -1,0 +1,50 @@
+[
+    {
+        "article": "Jack Hammer Knife",
+        "store": "Kilmore, VIC",
+        "question": "How much did we spend to pick the item at the DC?",
+        "choices": [
+            0.06,
+            0.08,
+            0.11,
+            0.15
+        ],
+        "answer": 0.08
+    },
+    {
+        "article": "Jack Hammer Knife",
+        "store": "Kilmore, VIC",
+        "question": "How much did we spend to freight the item?",
+        "choices": [
+            0.01,
+            0.05,
+            0.09,
+            0.16
+        ],
+        "answer": 0.09
+    },
+    {
+        "article": "Jack Hammer Knife",
+        "store": "Kilmore, VIC",
+        "question": "How much did we spend to stock the item in the store?",
+        "choices": [
+            0.38,
+            0.42,
+            0.50,
+            0.57
+        ],
+        "answer": 0.42
+    },
+    {
+        "article": "Jack Hammer Knife",
+        "store": "Kilmore, VIC",
+        "question": "Question: What was the Cost to Serve profitablity?",
+        "choices": [
+            -3.89,
+            1.89,
+            3.89,
+            4.89
+        ],
+        "answer": 3.89
+    }
+]

@@ -198,6 +198,7 @@ response_box = Responsebox(win_width, wall.img_width)
 
 
 for player in [1, 2, 3, 4, 5]:
+    print(f"{player=}")
     with open(f"questions{player}.json", "r") as f:
         questions = json.load(f)
 
@@ -207,7 +208,8 @@ for player in [1, 2, 3, 4, 5]:
     moves = 0
     redrawGameWindow(char.curr)
 
-    for question in questions:
+    for i, question in enumerate(questions, 1):
+        print(f"question: {i}")
 
         question_box.article = question["article"]
         question_box.store = question["store"]
@@ -264,6 +266,7 @@ for player in [1, 2, 3, 4, 5]:
 
                 if len(wall.vectors) == 0:
                     char.set_to_start()
+                    char.animate = False
                     run = False
 
     if len(wall.vectors) > 0:
@@ -276,7 +279,7 @@ for player in [1, 2, 3, 4, 5]:
             else:
                 pygame.time.wait(1000)
             pygame.mixer.music.stop()
-    elif len(wall.vectors) > 0:
+    elif len(wall.vectors) == 0:
         print("Loser")
         pygame.mixer.music.load("sound/buzz.mp3")
         pygame.mixer.music.play(start=1.9)
@@ -284,6 +287,7 @@ for player in [1, 2, 3, 4, 5]:
         pygame.mixer.music.stop()
 
     print("next_player")
+
     # char.set_to_start()
 print("Game finished")
 pygame.quit()
