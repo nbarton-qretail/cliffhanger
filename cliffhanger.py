@@ -273,6 +273,14 @@ for player in [1, 2, 3, 4, 5]:
         print("Winner")
         pygame.mixer.music.load("sound/ding.mp3")
         for i in range(3):
+            win.blit(
+                answerimg.winner_img,
+                (
+                    (win.get_width() // 2) - (answerimg.winner_img_width // 2),
+                    (win.get_height() // 2) - (answerimg.winner_img_height // 2),
+                ),
+            )
+            pygame.display.update()
             pygame.mixer.music.play()
             if i < 2:
                 pygame.time.wait(200)
@@ -281,6 +289,14 @@ for player in [1, 2, 3, 4, 5]:
             pygame.mixer.music.stop()
     elif len(wall.vectors) == 0:
         print("Loser")
+        win.blit(
+            answerimg.loser_img,
+            (
+                (win.get_width() // 2) - (answerimg.loser_img_width // 2),
+                (win.get_height() // 2) - (answerimg.loser_img_height // 2),
+            ),
+        )
+        pygame.display.update()
         pygame.mixer.music.load("sound/buzz.mp3")
         pygame.mixer.music.play(start=1.9)
         pygame.time.wait(1000)

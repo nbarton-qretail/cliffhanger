@@ -61,3 +61,15 @@ class Answerimg:
         self.cross_img = pygame.transform.smoothscale(self.cross_img, size=(800, 800))
         self.cross_img_width = 800
         self.cross_img_height = 800
+
+        self.winner_filepath = "img/winner.png"
+        self.winner_img = pygame.image.load(self.winner_filepath)
+        self.winner_img = pygame.transform.smoothscale(self.winner_img, size=(800, 800))
+        self.winner_img_width = 800
+        self.winner_img_height = 800
+
+        self.loser_filepath = "img/loser.jpeg"
+        self.loser_img = pygame.image.load(self.loser_filepath)
+        self.loser_img = pygame.transform.smoothscale(self.loser_img, size=(800, 800))
+        self.loser_img_width = 800
+        self.loser_img_height = 800
